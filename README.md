@@ -1,13 +1,13 @@
 <p align="center">
-    <a href="https://nordvpn.com/"><img src="https://github.com/bubuntux/nordvpn/raw/master/NordVpn_logo.png"/></a>
+    <a href="https://nordvpn.com/"><img src="https://github.com/5t4cktr4c3/nordvpn/raw/master/NordVpn_logo.png"/></a>
     </br>
-    <a href="https://github.com/bubuntux/nordvpn/blob/master/LICENSE"><img src="https://badgen.net/github/license/bubuntux/nordvpn?color=cyan"/></a>
-    <a href="https://cloud.docker.com/u/bubuntux/repository/docker/bubuntux/nordvpn"><img src="https://badgen.net/docker/size/bubuntux/nordvpn?icon=docker&label=size"/></a>
-    <a href="https://cloud.docker.com/u/bubuntux/repository/docker/bubuntux/nordvpn"><img src="https://badgen.net/docker/pulls/bubuntux/nordvpn?icon=docker&label=pulls"/></a>
-    <a href="https://cloud.docker.com/u/bubuntux/repository/docker/bubuntux/nordvpn"><img src="https://badgen.net/docker/stars/bubuntux/nordvpn?icon=docker&label=stars"/></a>
-    <a href="https://github.com/bubuntux/nordvpn"><img src="https://badgen.net/github/forks/bubuntux/nordvpn?icon=github&label=forks&color=black"/></a>
-    <a href="https://github.com/bubuntux/nordvpn"><img src="https://badgen.net/github/stars/bubuntux/nordvpn?icon=github&label=stars&color=black"/></a>
-    <a href="https://github.com/bubuntux/nordvpn/actions?query=workflow%3Arelease"><img src="https://github.com/bubuntux/nordvpn/workflows/release/badge.svg"/></a>
+    <a href="https://github.com/5t4cktr4c3/nordvpn/blob/master/LICENSE"><img src="https://badgen.net/github/license/5t4cktr4c3/nordvpn?color=cyan"/></a>
+    <a href="https://cloud.docker.com/u/5t4cktr4c3/repository/docker/5t4cktr4c3/nordvpn"><img src="https://badgen.net/docker/size/5t4cktr4c3/nordvpn?icon=docker&label=size"/></a>
+    <a href="https://cloud.docker.com/u/5t4cktr4c3/repository/docker/5t4cktr4c3/nordvpn"><img src="https://badgen.net/docker/pulls/5t4cktr4c3/nordvpn?icon=docker&label=pulls"/></a>
+    <a href="https://cloud.docker.com/u/5t4cktr4c3/repository/docker/5t4cktr4c3/nordvpn"><img src="https://badgen.net/docker/stars/5t4cktr4c3/nordvpn?icon=docker&label=stars"/></a>
+    <a href="https://github.com/5t4cktr4c3/nordvpn"><img src="https://badgen.net/github/forks/5t4cktr4c3/nordvpn?icon=github&label=forks&color=black"/></a>
+    <a href="https://github.com/5t4cktr4c3/nordvpn"><img src="https://badgen.net/github/stars/5t4cktr4c3/nordvpn?icon=github&label=stars&color=black"/></a>
+    <a href="https://github.com/5t4cktr4c3/nordvpn/actions?query=workflow%3Arelease"><img src="https://github.com/5t4cktr4c3/nordvpn/workflows/release/badge.svg"/></a>
 </p>
 
 NordVpn official client in a docker. It makes routing containers traffic through NordVpn easy.
@@ -23,7 +23,7 @@ This container was designed to be started first to provide a connection to other
     docker run -ti --cap-add=NET_ADMIN --cap-add=SYS_MODULE --device /dev/net/tun --name vpn \
                 --sysctl net.ipv4.conf.all.rp_filter=2 \
                 -e USER=user@email.com -e PASS='pas$word' \
-                -e CONNECT=country -e TECHNOLOGY=NordLynx -d bubuntux/nordvpn
+                -e CONNECT=country -e TECHNOLOGY=OpenVPN -d 5t4cktr4c3/nordvpn
 
 Once it's up other containers can be started using it's network connection:
 
@@ -60,11 +60,11 @@ The environment variable NETWORK must be your local network that you would conne
 
     docker run -ti --cap-add=NET_ADMIN --device /dev/net/tun --name vpn \
                 -p 8080:80 -e NETWORK=192.168.1.0/24 \ 
-                -e USER=user@email.com -e PASS='pas$word' -d bubuntux/nordvpn                
+                -e USER=user@email.com -e PASS='pas$word' -d 5t4cktr4c3/nordvpn                
 
 Now just create the second container _without_ the `-p` parameter, only inlcude the `--net=container:vpn`, the port should be declare in the vpn container.
 
-    docker run -ti --rm --net=container:vpn -d bubuntux/riot-web
+    docker run -ti --rm --net=container:vpn -d 5t4cktr4c3/riot-web
 
 now the service provided by the second container would be available from the host machine (http://localhost:8080) or anywhere inside the local network (http://192.168.1.xxx:8080).
 
@@ -73,7 +73,7 @@ now the service provided by the second container would be available from the hos
 version: "3"
 services:
   vpn:
-    image: bubuntux/nordvpn
+    image: 5t4cktr4c3/nordvpn
     cap_add:
       - NET_ADMIN               # Required
       - SYS_MODULE              # Required for TECHNOLOGY=NordLynx
@@ -81,7 +81,7 @@ services:
       - net.ipv4.conf.all.rp_filter=2
     devices:
       - /dev/net/tun            # Required
-    environment:                # Review https://github.com/bubuntux/nordvpn#environment-variables
+    environment:                # Review https://github.com/5t4cktr4c3/nordvpn#environment-variables
       - USER=user@email.com     # Required
       - "PASS=pas$word"         # Required
       - CONNECT=United_States
@@ -120,7 +120,7 @@ services:
 version: "3"
 services:
   vpn:
-    image: bubuntux/nordvpn
+    image: 5t4cktr4c3/nordvpn
     network_mode: bridge        # Required
     cap_add:
       - NET_ADMIN               # Required
@@ -129,7 +129,7 @@ services:
       - net.ipv4.conf.all.rp_filter=2
     devices:
       - /dev/net/tun            # Required
-    environment:                # Review https://github.com/bubuntux/nordvpn#environment-variables
+    environment:                # Review https://github.com/5t4cktr4c3/nordvpn#environment-variables
       - USER=user@email.com     # Required
       - "PASS=pas$word"         # Required
       - CONNECT=United_States
@@ -159,11 +159,11 @@ All traffic going through the container is routed to the vpn (unless whitelisted
  * `USER`     - User for NordVPN account.
  * `PASS`     - Password for NordVPN account, surrounding the password in single quotes will prevent issues with special characters such as `$`.
  * `CONNECT`  -  [country]/[server]/[country_code]/[city]/[group] or [country] [city], if none provide you will connect to  the recommended server.
-   - Provide a [country] argument to connect to a specific country. For example: Australia , Use `docker run --rm bubuntux/nordvpn sh -c "nordvpnd & sleep 1 && nordvpn countries"` to get the list of countries.
+   - Provide a [country] argument to connect to a specific country. For example: Australia , Use `docker run --rm 5t4cktr4c3/nordvpn sh -c "nordvpnd & sleep 1 && nordvpn countries"` to get the list of countries.
    - Provide a [server] argument to connecto to a specific server. For example: jp35 , [Full List](https://nordvpn.com/servers/tools/)
    - Provide a [country_code] argument to connect to a specific country. For example: us 
-   - Provide a [city] argument to connect to a specific city. For example: 'Hungary Budapest' , Use `docker run --rm bubuntux/nordvpn sh -c "nordvpnd & sleep 1 && nordvpn cities [country]"` to get the list of cities. 
-   - Provide a [group] argument to connect to a specific servers group. For example: P2P , Use `docker run --rm bubuntux/nordvpn sh -c "nordvpnd & sleep 1 && nordvpn groups"` to get the full list.
+   - Provide a [city] argument to connect to a specific city. For example: 'Hungary Budapest' , Use `docker run --rm 5t4cktr4c3/nordvpn sh -c "nordvpnd & sleep 1 && nordvpn cities [country]"` to get the list of cities. 
+   - Provide a [group] argument to connect to a specific servers group. For example: P2P , Use `docker run --rm 5t4cktr4c3/nordvpn sh -c "nordvpnd & sleep 1 && nordvpn groups"` to get the full list.
    - --group value, -g value  Specify a server group to connect to. For example: 'us -g p2p'
  * `TECHNOLOGY` - Specify Technology to use: 
    * OpenVPN    - Traditional connection.
@@ -171,7 +171,7 @@ All traffic going through the container is routed to the vpn (unless whitelisted
  * `PROTOCOL`   - TCP or UDP (only valid when using OpenVPN).
  * `OBFUSCATE`  - Enable or Disable. When enabled, this feature allows to bypass network traffic sensors which aim to detect usage of the protocol and log, throttle or block it (only valid when using OpenVpn). 
  * `CYBER_SEC`  - Enable or Disable. When enabled, the CyberSec feature will automatically block suspicious websites so that no malware or other cyber threats can infect your device. Additionally, no flashy ads will come into your sight. More information on how it works: https://nordvpn.com/features/cybersec/.
- * `DNS` -   Can set up to 3 DNS servers. For example 1.1.1.1,8.8.8.8 or Disable, Setting DNS disables CyberSec.
+ * `DNS` -   Can set up to 3 DNS servers and insert them on startup in `/etc/resolv.conf`. For example 1.1.1.1,8.8.8.8 or Disable, Setting DNS disables CyberSec.
  * `WHITELIST` - List of domains that are gonna be accessible _outside_ vpn (IE rarbg.to,yts.am).
  * `NETWORK`  - CIDR networks (IE 192.168.1.0/24), add a route to allows replies once the VPN is up.
  * `NETWORK6` - CIDR IPv6 networks (IE fe00:d34d:b33f::/64), add a route to allows replies once the VPN is up.
@@ -182,4 +182,4 @@ All traffic going through the container is routed to the vpn (unless whitelisted
 
 # Issues
 
-If you have any problems with or questions about this image, please contact me through a [GitHub issue](https://github.com/bubuntux/nordvpn/issues).
+If you have any problems with or questions about this image, please contact me through a [GitHub issue](https://github.com/5t4cktr4c3/nordvpn/issues).
