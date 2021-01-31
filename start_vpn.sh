@@ -116,6 +116,10 @@ setup_nordvpn() {
 
 kill_switch
 
+if [ ! -d /run/nordvpn ]; then
+    mkdir /run/nordvpn
+fi
+
 pkill nordvpnd
 rm -f /run/nordvpn/nordvpnd.sock
 sg vpn -c nordvpnd &
