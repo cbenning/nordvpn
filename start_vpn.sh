@@ -117,10 +117,10 @@ setup_nordvpn() {
 kill_switch
 
 pkill nordvpnd
-rm -f /run/nordvpnd.sock
+rm -f /run/nordvpn/nordvpnd.sock
 sg vpn -c nordvpnd &
 
-while [ ! -S /run/nordvpnd.sock ]; do
+while [ ! -S /run/nordvpn/nordvpnd.sock ]; do
 	sleep 0.25
 done
 
