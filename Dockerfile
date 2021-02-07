@@ -8,7 +8,7 @@ HEALTHCHECK --interval=5m --timeout=20s --start-period=1m \
 
 RUN addgroup --system vpn && \
 	apt-get update -yqq && \
-	apt-get install -yqq nano iputils-ping net-tools dnsutils traceroute curl jq && \
+	apt-get install -yqq nano man iputils-ping net-tools dnsutils traceroute curl jq && \
 	curl -s https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb --output /tmp/nordrepo.deb && \
     apt-get install -yqq /tmp/nordrepo.deb && \
     apt-get update -yqq && \
@@ -22,5 +22,5 @@ RUN addgroup --system vpn && \
 		/var/lib/apt/lists/* \
 		/var/tmp/*
 
-CMD /usr/bin/start_vpn.sh
+CMD ["/usr/bin/start_vpn.sh"]
 COPY start_vpn.sh /usr/bin

@@ -173,7 +173,7 @@ All traffic going through the container is routed to the vpn (unless whitelisted
  * `CYBER_SEC`  - Enable or Disable. When enabled, the CyberSec feature will automatically block suspicious websites so that no malware or other cyber threats can infect your device. Additionally, no flashy ads will come into your sight. More information on how it works: https://nordvpn.com/features/cybersec/.
  * `DNS` -   Can set up to 3 DNS servers and insert them on startup in `/etc/resolv.conf`. For example 1.1.1.1,8.8.8.8 or Disable, Setting DNS disables CyberSec.
  * `WHITELIST` - List of domains that are gonna be accessible _outside_ vpn (IE rarbg.to,yts.am).
- * `NETWORK`  - CIDR networks (IE 192.168.1.0/24), add a route to allows replies once the VPN is up.
+ * `NETWORK4`  - CIDR networks (IE 192.168.1.0/24), add a route to allows replies once the VPN is up.
  * `NETWORK6` - CIDR IPv6 networks (IE fe00:d34d:b33f::/64), add a route to allows replies once the VPN is up.
  * `TZ` - Set a timezone (IE EST5EDT, America/Denver, [full list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)).
  * `GROUPID` - Set the GID for the vpn.
